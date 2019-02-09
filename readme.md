@@ -1,14 +1,14 @@
 **Gas & Water Usage Monitoring Application**
 
-##Usage
+## Usage
 
-####Run application from source:
+#### Run application from source:
 ~~~~
 mvnw spring-bot:run
 ~~~~
 
-####API
-#####Add measurement
+#### API
+##### Add measurement
 ~~~~
 curl -H "Content-Type: application/json" --data "{\"userId\" : \"user_1\",\"gas\" : 55.0,\"coldWater\" : 1011.01,\"hotWater\" : 710.777}" http://localhost:8080/measure
 ~~~~
@@ -23,7 +23,7 @@ curl -H "Content-Type: application/json" --data "{\"userId\" : \"user_1\",\"gas\
 }
 ~~~~
 
-#####Get list of measurements
+##### Get list of measurements
 ~~~~
 curl -i -X GET http://localhost:8080/measure?userId=user_1
 ~~~~
@@ -59,15 +59,15 @@ curl -i -X GET http://localhost:8080/measure?userId=user_1
 }
 ~~~~
 
-####Build (compile, unit tests, jar)
+####B uild (compile, unit tests, jar)
 ~~~~
 mvnw clean package
 ~~~~
 
-####Integration tests
+#### Integration tests
 ~~~~
 mvnw integration-test
 ~~~~
 
-####Postman project
+#### Postman project
 _measure.postman_collection.json_
