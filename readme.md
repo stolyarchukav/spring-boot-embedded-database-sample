@@ -1,17 +1,73 @@
-Gas & Water Usage Monitoring Application
+**Gas & Water Usage Monitoring Application**
 
-Create an application to monitor gas, cold and hot water usage.
-No UI needed, only REST API. Two REST API methods should be implemented: one for submitting the current measurements
-for a given user, other for getting the history of previously submitted measurements for a given user.
-User inputs should be validated to reject incomplete or invalid data.
+##Usage
 
-Technical Requirements
+####Run application from source:
+~~~~
+mvnw spring-bot:run
+~~~~
 
-1. Use Java 1.8, Spring Framework and Maven.
-2. Use other Java libraries as needed.
-3. Use HSQLDB for storing data. It is ok NOT to persist data across
-application launches.
-4. Try following all the good principles of writing qualitative and
-testable code.
-5. Fill in missing requirements as you feel suitable.
-6. Include a short README file describing how the application works and how to build and run the project.
+####API
+#####Add measurement
+~~~~
+curl -H "Content-Type: application/json" --data "{\"userId\" : \"user_1\",\"gas\" : 55.0,\"coldWater\" : 1011.01,\"hotWater\" : 710.777}" http://localhost:8080/measure
+~~~~
+~~~~json
+{
+    "id": 3,
+    "date": "2019-02-09T15:32:44.417+0000",
+    "userId": "user_1",
+    "gas": 55,
+    "coldWater": 1011.01,
+    "hotWater": 710.777
+}
+~~~~
+
+#####Get list of measurements
+~~~~
+curl -i -X GET http://localhost:8080/measure?userId=user_1
+~~~~
+~~~~json
+{
+    "measurements": [
+        {
+            "id": 3,
+            "date": "2019-02-09T15:45:26.312+0000",
+            "userId": "user_1",
+            "gas": 500,
+            "coldWater": 0,
+            "hotWater": 77.34
+        },
+        {
+            "id": 2,
+            "date": "2019-02-09T15:45:15.133+0000",
+            "userId": "user_1",
+            "gas": 0,
+            "coldWater": 101.11,
+            "hotWater": 10.33
+        },
+        {
+            "id": 1,
+            "date": "2019-02-09T15:44:58.373+0000",
+            "userId": "user_1",
+            "gas": 55,
+            "coldWater": 1011.01,
+            "hotWater": 710.78
+        }
+    ],
+    "count": 3
+}
+~~~~
+
+####Build (compile, unit tests, jar)
+~~~~
+mvnw clean package
+~~~~
+
+####Integration tests
+~~~~
+mvnw integration-test
+~~~~
+
+####Postman project
+_measure.postman_collection.json_
