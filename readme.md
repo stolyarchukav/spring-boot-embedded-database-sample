@@ -59,7 +59,7 @@ curl -i -X GET http://localhost:8080/measure?userId=user_1
 }
 ~~~~
 
-####B uild (compile, unit tests, jar)
+#### Build (compile, unit tests, jar)
 ~~~~
 mvnw clean package
 ~~~~
