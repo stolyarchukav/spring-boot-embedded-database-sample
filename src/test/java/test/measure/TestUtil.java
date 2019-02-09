@@ -22,13 +22,17 @@ public class TestUtil {
                 .build();
     }
 
-    public static MeasurementResource resource() {
+    public static MeasurementResource resource(String userId) {
         return MeasurementResource.builder()
-                .userId(USER_ID)
+                .userId(userId)
                 .gas(BigDecimal.ONE)
                 .coldWater(BigDecimal.TEN)
                 .hotWater(BigDecimal.ZERO)
                 .build();
+    }
+
+    public static MeasurementResource resource() {
+        return resource(USER_ID);
     }
 
 }

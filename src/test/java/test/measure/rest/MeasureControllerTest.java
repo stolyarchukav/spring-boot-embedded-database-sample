@@ -5,6 +5,8 @@ import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import test.measure.converter.Converter;
 import test.measure.exception.InvalidRequestException;
 import test.measure.repository.MeasureRepository;
@@ -12,7 +14,6 @@ import test.measure.repository.Measurement;
 import test.measure.validator.ResourceValidator;
 
 import java.util.Arrays;
-import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
@@ -40,9 +41,10 @@ public class MeasureControllerTest {
         when(repository.findByUserIdOrderByDateDesc(USER_ID)).thenReturn(Arrays.asList(measurement(), measurement()));
         when(converter.toResource(any())).thenReturn(resource());
 
-        List<MeasurementResource> measurements = controller.findMeasurements(USER_ID);
+        MeasurementResources measurements = controller.findMeasurements(USER_ID);
 
-        assertEquals(2, measurements.size());
+        assertEquals(2, measurements.getMeasurements().size());
+        assertEquals(2, measurements.getCount());
     }
 
     @Test
@@ -53,9 +55,10 @@ public class MeasureControllerTest {
         when(converter.toResource(entity)).thenReturn(resource);
         when(repository.save(entity)).thenReturn(entity);
 
-        MeasurementResource result = controller.saveMeasurement(resource);
+        ResponseEntity<MeasurementResource> response = controller.saveMeasurement(resource);
 
-        assertEquals(resource, result);
+        assertEquals(HttpStatus.CREATED, response.getStatusCode());
+        assertEquals(resource, response.getBody());
     }
 
     @Test (expected = InvalidRequestException.class)
