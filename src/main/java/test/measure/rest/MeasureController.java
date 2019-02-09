@@ -25,7 +25,7 @@ public class MeasureController {
 
     @Transactional(readOnly = true)
     @GetMapping
-    public List<MeasurementResource> saveMeasurement(@RequestParam(value = "userId") String userId) {
+    public List<MeasurementResource> findMeasurements(@RequestParam(value = "userId") String userId) {
         log.info("Get list of measurements for user: {}", userId);
         List<MeasurementResource> resources = repository.findByUserIdOrderByDateDesc(userId)
                 .stream()
