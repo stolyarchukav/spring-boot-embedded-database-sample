@@ -1,0 +1,71 @@
+{
+	"info": {
+		"_postman_id": "08da41b1-346c-4b5e-aea7-f7cb65328a0e",
+		"name": "measure",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Save measurement",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"userId\" : \"user_1\",\n\t\"gas\" : 55.0,\n\t\"coldWater\" : 1011.01,\n\t\"hotWater\" : 710.777\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/measure",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"measure"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "List of measurements",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"userId\" : \"user_1\",\n\t\"gas\" : \"55\",\n\t\"coldWater\" : \"1011\",\n\t\"hotWater\" : \"710\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/measure?userId=user_1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"measure"
+					],
+					"query": [
+						{
+							"key": "userId",
+							"value": "user_1"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
