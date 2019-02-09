@@ -11,6 +11,9 @@ import org.springframework.test.context.junit4.SpringRunner;
 import test.measure.rest.MeasurementResource;
 import test.measure.rest.MeasurementResources;
 
+import java.math.BigDecimal;
+import java.util.Date;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static test.measure.TestUtil.USER_ID;
@@ -53,6 +56,25 @@ public class MeasureApplicationIT {
 		assertNotNull(body);
 		assertEquals(3, body.getCount());
 		assertEquals(3, body.getMeasurements().size());
+	}
+
+	@Test
+	public void saveMeasurementInvalidRequest() {
+		MeasurementResource resource = MeasurementResource.builder()
+				.id(10L)
+				.date(new Date())
+				.gas(BigDecimal.ONE)
+				.hotWater(BigDecimal.ZERO)
+				.build();
+
+		ResponseEntity<ErrorResponse> response = restTemplate.postForEntity("/measure",
+				resource, ErrorResponse.class);
+
+		assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
+		ErrorResponse error = response.getBody();
+		assertNotNull(error);
+		assertEquals("coldWater must not be null; date must be null; id must be null; userId must not be empty", error.getMessage());
+
 	}
 
 	private ResponseEntity<MeasurementResource> postMeasurement(MeasurementResource resource) {

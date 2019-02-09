@@ -24,6 +24,7 @@ public class MeasurementResourceValidator implements ResourceValidator<Measureme
         String errorMessage = validator.validate(resource)
                 .stream()
                 .map(this::errorMessage)
+                .sorted()
                 .collect(Collectors.joining("; "));
         if (! errorMessage.isEmpty()) {
             log.warn("Request validation constraints detected: {}", errorMessage);
